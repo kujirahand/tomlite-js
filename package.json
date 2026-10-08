@@ -23,13 +23,27 @@
   "engines": {
     "node": ">=22.18"
   },
+  "sideEffects": false,
   "keywords": [
     "toml",
     "parser",
-    "serializer"
+    "serializer",
+    "stringify",
+    "typescript"
   ],
   "author": "kujirahand",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kujirahand/tomlite-js.git"
+  },
+  "homepage": "https://github.com/kujirahand/tomlite-js#readme",
+  "bugs": {
+    "url": "https://github.com/kujirahand/tomlite-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/node": "^26.6.4",
     "typescript": "^7.0.2"

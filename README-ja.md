@@ -1,5 +1,7 @@
 # tomlite - JS/TS向けの安全で小さなTOMLパーサー
 
+[![npm version](https://img.shields.io/npm/v/tomlite.svg)](https://www.npmjs.com/package/tomlite)
+
 本ライブラリは、TOML の基本機能だけに絞った、小さく安全なパーサーとシリアライザーです。依存パッケージはありません。TOML への完全準拠は目指しておらず、対応していない構文はエラー（`TomlError`）になります。
 
 ## 使い方
