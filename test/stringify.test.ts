@@ -124,4 +124,23 @@ describe('stringify', () => {
     const data = parse('"__proto__" = { a = 1 }\nb = 2');
     assert.deepEqual(parse(stringify(data)), data);
   });
+
+  it('孤立サロゲートを含む値はエラーにする', () => {
+    for (const bad of ['\uD800', '\uDC00', 'a\uD800b', '\uDC00\uD800', 'x\uD800']) {
+      assert.throws(() => stringify({ s: bad }), TomlError);
+      assert.throws(() => stringify({ a: [bad] }), TomlError);
+    }
+  });
+
+  it('孤立サロゲートを含むキーはエラーにする', () => {
+    for (const bad of ['\uD800', '\uDC00', 'k\uD800']) {
+      assert.throws(() => stringify({ [bad]: 1 }), TomlError);
+      assert.throws(() => stringify({ t: { [bad]: 1 } }), TomlError);
+    }
+  });
+
+  it('正常なサロゲートペアは値・キーとも往復できる', () => {
+    const data = { '😀key': '😀 \u{10FFFF} a😀', t: { '𠮷': ['😀'] } };
+    assert.deepEqual(parse(stringify(data)), data);
+  });
 });

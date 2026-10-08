@@ -68,6 +68,12 @@ function isDigit(c: number): boolean {
   return c >= 0x30 && c <= 0x39;
 }
 
+/** Numeric value of a hex digit character code. The caller must check isHexDigit first */
+function hexDigitValue(c: number): number {
+  if (c <= 0x39) return c - 0x30;
+  return (c | 0x20) - 0x61 + 10;
+}
+
 function isHexDigit(c: number): boolean {
   return isDigit(c) || (c >= 0x41 && c <= 0x46) || (c >= 0x61 && c <= 0x66);
 }
@@ -624,7 +630,7 @@ class Parser {
     for (let i = 0; i < digits; i++) {
       const c = this.code();
       if (!isHexDigit(c)) throw this.error('Invalid unicode escape', start);
-      cp = cp * 16 + parseInt(String.fromCharCode(c), 16);
+      cp = cp * 16 + hexDigitValue(c);
       this.pos++;
     }
     if (cp > 0x10ffff || (cp >= 0xd800 && cp <= 0xdfff)) {

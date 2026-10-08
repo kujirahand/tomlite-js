@@ -61,6 +61,14 @@ function formatString(s: string): string {
       case 0x0d: esc = '\\r'; break;
       default:
         if (c < 0x20 || c === 0x7f) esc = '\\u' + c.toString(16).padStart(4, '0');
+        else if (c >= 0xd800 && c <= 0xdbff) {
+          // A high surrogate must be followed by a low surrogate; skip the pair
+          const next = i + 1 < s.length ? s.charCodeAt(i + 1) : 0;
+          if (next < 0xdc00 || next > 0xdfff) throw new TomlError('Cannot stringify a lone surrogate');
+          i++;
+        } else if (c >= 0xdc00 && c <= 0xdfff) {
+          throw new TomlError('Cannot stringify a lone surrogate');
+        }
     }
     if (esc !== null) {
       out += s.slice(chunk, i) + esc;
