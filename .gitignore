@@ -147,3 +147,11 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Windows
+.Thumbs.db
+Desktop.ini
