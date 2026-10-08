@@ -72,7 +72,7 @@ stringify(obj, { maxDepth: 32 });
 
 ## 開発
 
-Node.js 22.18 以降（TypeScript を直接実行できるバージョン）が必要です。
+Node.js 20 以降が必要です。（TypeScript ソースから直接テストを実行するには Node.js 22.18 以降が必要です。）
 
 ```sh
 npm install

@@ -74,7 +74,7 @@ Regression tests for large numbers of comment lines, deep nesting, long key line
 
 ## Development
 
-Requires Node.js 22.18 or later (a version that can run TypeScript directly).
+Requires Node.js 20 or later. (Running the tests from TypeScript source needs Node.js 22.18 or later.)
 
 ```sh
 npm install

@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Compile sources and tests to plain JavaScript
+        run: |
+          npx tsc --noEmit false --outDir out --rootDir . \
+            --allowImportingTsExtensions false --declaration false
+          echo '{"type":"module"}' > out/package.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compiled
+          path: out
+
+  # Run the compiled JavaScript on every supported Node.js line, so that
+  # the `engines` range is actually verified (the build job needs 22.18+
+  # only because it runs TypeScript directly).
+  test-compiled:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22.0.0, 22.17.0, 22.x, 24]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: compiled
+          path: out
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node --test out/test/*.test.js
