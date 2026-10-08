@@ -1,6 +1,6 @@
 {
   "name": "tomlite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal, robust, and safe TOML parser and serializer for JavaScript and TypeScript",
   "type": "module",
   "main": "./dist/index.js",
@@ -21,7 +21,7 @@
     "prepublishOnly": "npm run typecheck && npm test && npm run build"
   },
   "engines": {
-    "node": ">=22.18"
+    "node": ">=20"
   },
   "keywords": [
     "toml",
