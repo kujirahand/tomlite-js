@@ -1,5 +1,7 @@
 # tomlite - A small, safe TOML parser for JS/TS
 
+[![npm version](https://img.shields.io/npm/v/tomlite.svg)](https://www.npmjs.com/package/tomlite)
+
 [日本語のREADME](https://github.com/kujirahand/tomlite-js/blob/main/README-ja.md)
 
 This library is a small, safe parser and serializer focused on the essential features of TOML. It has no dependencies. Full compliance with the TOML specification is not a goal; unsupported syntax results in an error (`TomlError`).
